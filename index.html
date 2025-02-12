@@ -3,64 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Cosmic Vista - Explore NASA's Astronomy Picture of the Day with a futuristic, space-themed interface." />
+  <meta name="description" content="Cosmic Vista - Explore NASA's Astronomy Picture of the Day with a futuristic, dark mode interface." />
   <title>Cosmic Vista - APOD</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Nebula Font CDN for headings -->
   <link href="https://fonts.cdnfonts.com/css/nebula" rel="stylesheet">
   <style>
-    /* Space-themed background */
+    /* Futuristic animated gradient background */
     body {
-      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-      font-family: "SF Pro Display Medium", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+      background-size: 600% 600%;
+      animation: gradientAnimation 16s ease infinite;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
     }
-    /* Headings in Nebula font */
-    h1, h2, h3, h4, h5, h6 {
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Header with neon glow and futuristic styling */
+    header {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 1.5rem 0;
+    }
+    header h1 {
       font-family: 'Nebula', sans-serif;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      letter-spacing: 2px;
+      text-align: center;
+      margin: 0;
+      font-size: 2.5rem;
     }
-    /* Smooth hover effect for images */
+    /* Futuristic glassmorphism card */
+    .glass-card {
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 40px rgba(0, 255, 255, 0.4);
+    }
+    /* Neon button styling */
+    .btn {
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+    }
+    /* Input styling with neon focus */
+    input[type="date"] {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #e0e0e0;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      transition: border-color 0.3s ease;
+    }
+    input[type="date"]:focus {
+      border-color: #00ffff;
+      outline: none;
+    }
+    /* Image styling with neon border on hover */
     img {
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      border-radius: 15px;
+      border: 2px solid transparent;
     }
     img:hover {
       transform: scale(1.02);
+      box-shadow: 0 0 10px #00ffff;
     }
-    /* Card styling for APOD content */
-    .apod-card {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* Loader text neon styling */
+    #loader {
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
   </style>
 </head>
-<body class="text-white">
+<body>
   <!-- Header -->
-  <header class="py-6 border-b border-gray-700">
-    <div class="max-w-5xl mx-auto px-4 flex items-center justify-between">
-      <h1 class="text-3xl font-bold">Cosmic Vista</h1>
-      <nav aria-label="Main Navigation">
-        <!-- Future navigation items -->
-      </nav>
+  <header>
+    <div class="max-w-5xl mx-auto px-4">
+      <h1>Cosmic Vista</h1>
     </div>
   </header>
 
   <!-- Intro Description -->
-  <section class="max-w-5xl mx-auto px-4 py-4">
-    <p class="text-center text-lg text-gray-300">
-      Welcome to Cosmic Vista! Dive into NASA's Astronomy Picture of the Day and explore the cosmos with stunning visuals and captivating insights. Enjoy a futuristic, space-themed experience every day.
+  <section class="max-w-5xl mx-auto px-4 py-6">
+    <p class="text-center text-lg">
+      Welcome to Cosmic Vista! Dive into NASA's Astronomy Picture of the Day and explore the cosmos with stunning visuals and futuristic insights.
     </p>
   </section>
 
   <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-4 py-8">
+  <main class="max-w-4xl mx-auto px-4 py-8">
     <section id="apod-section" class="mb-12">
       <div class="flex flex-col items-center">
         <h2 class="text-2xl mb-4">Astronomy Picture of the Day</h2>
-        <div class="mb-6 flex items-center">
-          <input type="date" id="apod-date" class="rounded-lg p-2 text-black" max="">
-          <button id="fetch-btn" class="ml-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+        <div class="mb-6 flex items-center space-x-4">
+          <input type="date" id="apod-date" class="focus:outline-none focus:ring-2 focus:ring-cyan-400" max="">
+          <button id="fetch-btn" class="btn bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400">
             Fetch
           </button>
         </div>
@@ -105,18 +160,18 @@
       function displayAPOD(data) {
         let mediaContent = '';
         if (data.media_type === 'image') {
-          mediaContent = `<img src="${data.url}" alt="${data.title}" class="w-full rounded-lg shadow-lg">`;
+          mediaContent = `<img src="${data.url}" alt="${data.title}" class="w-full">`;
         } else if (data.media_type === 'video') {
           mediaContent = `
-            <div class="w-full aspect-video rounded-lg overflow-hidden shadow-lg">
+            <div class="w-full aspect-video overflow-hidden">
               <iframe src="${data.url}" frameborder="0" allow="encrypted-media" allowfullscreen class="w-full h-full"></iframe>
             </div>
           `;
         }
 
         apodContent.innerHTML = `
-          <div class="apod-card">
-            <h3 class="text-xl mt-4 mb-2 font-semibold">${data.title}</h3>
+          <div class="glass-card">
+            <h3 class="text-xl mb-2 font-semibold">${data.title}</h3>
             ${mediaContent}
             <p class="mt-4 text-justify">${data.explanation}</p>
             <p class="mt-2 italic">Date: ${data.date}</p>
